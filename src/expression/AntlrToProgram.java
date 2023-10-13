@@ -14,7 +14,18 @@ public class AntlrToProgram extends ExprBaseVisitor<Program> {
          Program prog = new Program();
 
           semanticErrors  = new ArrayList<>();
-          AntlrToExpression exprVisitor = new AntlrToExpression()
+          // helper visitor for transforming each subtree into an Expression object
+          AntlrToExpression exprVisitor = new AntlrToExpression(semanticErrors);
+          for(int i = 0; i < ctx.getChildCount(); i++) {
+               if(i == ctx.getChildCount() - 1){
+                   /* last child of the start symbol prig is EOF     */
+                   //Do not visit this child and attempt to convert it to an expression object
+               }
+               else{
+                  prog.addExpression(exprVisitor.visit(ctx.getChild(i)));
+
+               }
+          }
 
          return  prog;
     }
