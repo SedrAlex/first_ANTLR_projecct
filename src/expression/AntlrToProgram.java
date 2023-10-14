@@ -16,10 +16,11 @@ public class AntlrToProgram extends ExprBaseVisitor<Program> {
           semanticErrors  = new ArrayList<>();
           // helper visitor for transforming each subtree into an Expression object
           AntlrToExpression exprVisitor = new AntlrToExpression(semanticErrors);
+          // We want to visit each subtree because we want to count the number of children
           for(int i = 0; i < ctx.getChildCount(); i++) {
                if(i == ctx.getChildCount() - 1){
                    /* last child of the start symbol prig is EOF     */
-                   //Do not visit this child and attempt to convert it to an expression object
+                   //Do not visit this child and never attempt to convert it to an expression object
                }
                else{
                   prog.addExpression(exprVisitor.visit(ctx.getChild(i)));

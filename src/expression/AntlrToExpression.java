@@ -20,7 +20,7 @@ public class AntlrToExpression extends ExprBaseVisitor<Expression> {
 
     // This is really cruical because it won't compile if we did not handle this nullpointerexception
     public AntlrToExpression(List<String> semanticErrors){
-        vars = new ArrayList<>();
+        vars = new ArrayList<>(); // Assign this to new empty list
         this.semanticErrors = semanticErrors;
     }
     @Override
